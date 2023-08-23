@@ -1,8 +1,11 @@
 <template>
-    <div class="backdrop">
+    <div class="backdrop" @click.self="closeModal">
         <div class="ModalView" :class="{ sale: theme === 'sale'}">
-            <h1>{{ header }}</h1>
-            <p>{{ text }}</p>
+            <slot>Fallback Content</slot>
+            <div class="actions">
+                <slot name="links"></slot>
+            </div>
+
         </div>
     </div>
 </template>
@@ -10,15 +13,20 @@
 <script>
     export default {
         name: "ModalView",
-        props: ['header', 'text', 'theme'],
+        props: ['theme', 'handle', 'toggleModal'],
+        methods: {
+            closeModal(){
+                this.$emit('close');
+            }
+        }
     }
 </script>
 
-<style scoped>
+<style >
     .ModalView {
         width: 400px;
         padding: 20px;
-        margin: 100px auto;
+        margin: 200px auto;
         background: white;
         border-radius: 10px;
     }
@@ -42,5 +50,24 @@
 
     h1{
         color:rgb(57, 105, 196);
+    }
+
+    .actions{
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+    }
+
+    .actions a{
+        padding: 12px;
+
+        border: 1px solid #eee;
+        border-radius: 5px;
+
+        font-size: 1.2em;
+        font-weight: 600;
+        
+        color: #aaa;
+        text-decoration: none;
     }
 </style>
