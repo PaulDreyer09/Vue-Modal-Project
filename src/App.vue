@@ -1,15 +1,25 @@
 <template>
-  <div></div>
+  <div>
+    <h1>{{ title }}</h1>
+    <ModalView :header="header" :text="text" theme="sale"/>
+  </div>
 </template>
 
-<script>
 
+
+<script>
+import ModalView from "./components/ModalView";
 
 export default {
   name: 'App',
+  components: {
+    ModalView
+  },
   data() {
     return{
-      
+      title: 'My First Vue App',
+      header: "Sign up for the Giveaway!",
+      text: 'Grab your ninja swag for half price!',
     }
   },
   methods: {
